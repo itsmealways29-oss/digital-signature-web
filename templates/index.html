@@ -1,57 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="row mt-4">
+<div class="row g-4 justify-content-center">
 
   <!-- 🔑 KEY GENERATION -->
-  <div class="col-md-4">
-    <div class="card p-4">
-      <h5 class="section-title">🔑 Key Generation</h5>
-      <p>Generate a new RSA key pair for signing and verification.</p>
-
-      <a href="/generate_keys" class="btn btn-warning w-100">
-        Generate Keys
+  <div class="col-lg-4 col-md-6">
+    <div class="glass-card text-center d-flex flex-column h-100">
+      <div style="font-size: 3rem; margin-bottom: 10px;">🔑</div>
+      <h5 class="section-title">Key Generation</h5>
+      <p style="color: #cbd5e1; flex: 1;">Create a mathematically secure RSA 2048-bit key pair for signing and verification.</p>
+      
+      <a href="/generate_keys" class="btn btn-custom btn-gradient-warning w-100 mt-auto">
+        Generate New Keys
       </a>
     </div>
   </div>
 
   <!-- ✍️ SIGN -->
-  <div class="col-md-4">
-    <div class="card p-4">
-      <h5 class="section-title">✍️ Sign Data</h5>
-      <p>Sign your data using your private key.</p>
+  <div class="col-lg-4 col-md-6">
+    <div class="glass-card d-flex flex-column h-100">
+      <div class="text-center" style="font-size: 3rem; margin-bottom: 10px;">✍️</div>
+      <h5 class="section-title text-center">Sign Data</h5>
+      <p class="text-center" style="color: #cbd5e1;">Sign data with your private key to guarantee authenticity.</p>
 
-      <form action="/sign" method="post" enctype="multipart/form-data">
-        <textarea name="text" class="form-control mb-2" placeholder="Enter text to sign"></textarea>
+      <form action="/sign" method="post" enctype="multipart/form-data" class="mt-auto">
+        <textarea name="text" class="form-control mb-3" rows="3" placeholder="Enter sensitive text to sign..." required></textarea>
 
-        <label class="form-label">Upload Private Key *</label>
-        <input type="file" name="private_key" class="form-control mb-2">
+        <label class="form-label mb-1">Upload Private Key (.pem) <span class="text-danger">*</span></label>
+        <input type="file" name="private_key" class="form-control mb-4" accept=".pem" required>
 
-        <button class="btn btn-primary w-100">Generate Signature</button>
+        <button class="btn btn-custom btn-gradient-primary w-100 shadow-sm">
+          Generate Signature
+        </button>
       </form>
     </div>
   </div>
 
   <!-- ✔ VERIFY -->
-  <div class="col-md-4">
-    <div class="card p-4">
-      <h5 class="section-title">✔ Verify Signature</h5>
-      <p>Verify authenticity using public key.</p>
+  <div class="col-lg-4 col-md-6">
+    <div class="glass-card d-flex flex-column h-100">
+      <div class="text-center" style="font-size: 3rem; margin-bottom: 10px;">🛡️</div>
+      <h5 class="section-title text-center">Verify Signature</h5>
+      <p class="text-center" style="color: #cbd5e1;">Verify an origin using a public key and digital signature.</p>
 
-      <form action="/verify" method="post" enctype="multipart/form-data">
-        <textarea name="text" class="form-control mb-2" placeholder="Enter original data"></textarea>
+      <form action="/verify" method="post" enctype="multipart/form-data" class="mt-auto">
+        <textarea name="text" class="form-control mb-2" rows="2" placeholder="Enter the original message..." required></textarea>
+        <textarea name="signature" class="form-control mb-2" rows="2" placeholder="Paste the generated signature here..." required></textarea>
 
-        <textarea name="signature" class="form-control mb-2" placeholder="Paste signature"></textarea>
+        <label class="form-label mb-1">Upload Public Key (.pem) <span class="text-danger">*</span></label>
+        <input type="file" name="public_key" class="form-control mb-4" accept=".pem" required>
 
-        <label class="form-label">Upload Public Key *</label>
-        <input type="file" name="public_key" class="form-control mb-2">
-
-        <button class="btn btn-success w-100">Verify</button>
+        <button class="btn btn-custom btn-gradient-success w-100 shadow-sm">
+          Verify Integrity
+        </button>
       </form>
     </div>
   </div>
 
 </div>
-
 {% endblock %}

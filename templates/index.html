@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row mt-4">
+
+  <!-- 🔑 KEY GENERATION -->
+  <div class="col-md-4">
+    <div class="card p-4">
+      <h5 class="section-title">🔑 Key Generation</h5>
+      <p>Generate a new RSA key pair for signing and verification.</p>
+
+      <a href="/generate_keys" class="btn btn-warning w-100">
+        Generate Keys
+      </a>
+    </div>
+  </div>
+
+  <!-- ✍️ SIGN -->
+  <div class="col-md-4">
+    <div class="card p-4">
+      <h5 class="section-title">✍️ Sign Data</h5>
+      <p>Sign your data using your private key.</p>
+
+      <form action="/sign" method="post" enctype="multipart/form-data">
+        <textarea name="text" class="form-control mb-2" placeholder="Enter text to sign"></textarea>
+
+        <label class="form-label">Upload Private Key *</label>
+        <input type="file" name="private_key" class="form-control mb-2">
+
+        <button class="btn btn-primary w-100">Generate Signature</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✔ VERIFY -->
+  <div class="col-md-4">
+    <div class="card p-4">
+      <h5 class="section-title">✔ Verify Signature</h5>
+      <p>Verify authenticity using public key.</p>
+
+      <form action="/verify" method="post" enctype="multipart/form-data">
+        <textarea name="text" class="form-control mb-2" placeholder="Enter original data"></textarea>
+
+        <textarea name="signature" class="form-control mb-2" placeholder="Paste signature"></textarea>
+
+        <label class="form-label">Upload Public Key *</label>
+        <input type="file" name="public_key" class="form-control mb-2">
+
+        <button class="btn btn-success w-100">Verify</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

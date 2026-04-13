@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card p-4 mt-4">
+
+  <h3 class="text-center">📊 Result</h3>
+
+  <hr>
+
+  <h5>🔐 Hash (SHA-256)</h5>
+  <pre>{{ hash_val }}</pre>
+
+  {% if mode == "sign" %}
+
+    <h5>✍️ Digital Signature</h5>
+    <pre>{{ signature }}</pre>
+
+  {% elif mode == "verify" %}
+
+    {% if valid %}
+      <h4 class="text-success">✅ Signature is VALID</h4>
+    {% else %}
+      <h4 class="text-danger">❌ Signature is INVALID</h4>
+    {% endif %}
+
+  {% endif %}
+
+  <a href="/" class="btn btn-secondary mt-3">⬅ Back</a>
+
+</div>
+
+{% endblock %}
